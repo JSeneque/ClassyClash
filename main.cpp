@@ -7,10 +7,16 @@ int main()
 
     InitWindow(windowWidth, windowHeight, "Classy Clash");
 
-    Texture2D map = LoadTexture("./Tileset/map.png");
+    Texture2D map = LoadTexture("Tileset/map.png");
     Vector2 mapPos{0.0, 0.0};
 
     const float speed {4.0f};
+
+    Texture2D knight = LoadTexture("characters/knight_idle_spritesheet.png");
+    Vector2 knightPos {
+        (float)windowWidth/2.0f - 4.0f * (0.5f * (float)knight.width / 6.0f),
+        (float)windowHeight/2.0f - 4.0f * (0.5f * (float)knight.height)
+    };
 
     SetTargetFPS(60);
 
@@ -31,7 +37,14 @@ int main()
 
         }
         
+        // draw the map
         DrawTextureEx(map, mapPos, 0.0, 4.0, WHITE);
+
+        // draw the character
+        Rectangle source{0.0f, 0.0f, (float)knight.width/6.0f, (float)knight.height};
+        Rectangle dest{knightPos.x, knightPos.y, 4.0f * (float)knight.width /6.0f, 4.0f * (float)knight.height};
+        DrawTexturePro(knight, source, dest, Vector2{}, 0.0f, WHITE);
+
 
         EndDrawing();
     }
