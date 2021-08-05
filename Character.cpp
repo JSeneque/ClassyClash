@@ -1,22 +1,21 @@
 #include "Character.h"
 #include "raymath.h"
 
-Character::Character()
+Character::Character(int windowWidth, int windowHeight)
 {
     width = texture.width / maxFrames;
     height = texture.height;
-}
 
-void Character::setScreenPosition(int windowWidth, int windowHeight)
-{
     screenPos = {
-        (float)windowWidth / 2.0f - 4.0f * (0.5f * width),
-        (float)windowHeight / 2.0f - 4.0f * (0.5f * height)};
+        static_cast<float>(windowWidth) / 2.0f - scale * (0.5f * width),
+        static_cast<float>(windowHeight) / 2.0f - scale * (0.5f * height)};
 }
 
 void Character::update(float deltaTime)
 {
     Vector2 direction{};
+
+    worldPosLastFrame = worldPos;
 
     if (IsKeyDown(KEY_A))
         direction.x -= 1.0;
@@ -29,6 +28,7 @@ void Character::update(float deltaTime)
 
     if (Vector2Length(direction) != 0.0)
     {
+        
         worldPos = Vector2Add(worldPos, Vector2Scale(Vector2Normalize(direction), speed));
         direction.x < 0.0f ? rightLeft = -1.0f : rightLeft = 1.0f;
         texture = run;
@@ -50,6 +50,11 @@ void Character::update(float deltaTime)
 
     // draw the character
     Rectangle source{width * frame, 0.0f, rightLeft * width, height};
-    Rectangle dest{screenPos.x, screenPos.y, 4.0f * width, 4.0f * height};
+    Rectangle dest{screenPos.x, screenPos.y, scale * width, scale * height};
     DrawTexturePro(texture, source, dest, Vector2{}, 0.0f, WHITE);
+}
+
+void Character::undoMovement()
+{
+    worldPos = worldPosLastFrame;
 }
