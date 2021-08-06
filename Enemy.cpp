@@ -20,6 +20,11 @@ void Enemy::update(float deltaTime)
     velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
     BaseCharacter::update(deltaTime);
 
+    if (CheckCollisionRecs(getCollisionRec(), target->getCollisionRec()))
+    {
+        target->takeDamage(damagePerSec * deltaTime);
+    }
+
 }
 
 Vector2 Enemy::getScreenPos()

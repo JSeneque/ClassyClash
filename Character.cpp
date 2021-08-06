@@ -68,8 +68,6 @@ void Character::update(float deltaTime)
         weaponCollisionRec.height,
         RED
     );
-
-
 }
 
 
@@ -79,4 +77,13 @@ Vector2 Character::getScreenPos()
         static_cast<float>(windowWidth) / 2.0f - scale * (0.5f * width),
         static_cast<float>(windowHeight) / 2.0f - scale * (0.5f * height)
     };
+}
+
+void Character::takeDamage(float damage)
+{
+    health -= damage;
+    if (health <= 0.f)
+    {
+        setAlive(false);
+    }
 }
