@@ -24,7 +24,7 @@ int main()
     };
 
     Enemy goblin {
-        Vector2{},
+        Vector2{800.0f, 800.0f},
         LoadTexture("characters/goblin_idle_spritesheet.png"),
         LoadTexture("characters/goblin_run_spritesheet.png")   
         };

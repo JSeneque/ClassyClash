@@ -23,7 +23,7 @@ protected:
     int frame{};
     const int maxFrames{6};
     const float updateTime{1.0f/12.0f}; // update 12 times a second
-    const float speed {4.0f};
+    float speed {4.0f};
     float width{};
     float height{};
     float scale {4.0f};
