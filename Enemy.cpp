@@ -14,6 +14,8 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture)
 
 void Enemy::update(float deltaTime)
 {
+    if (!getAlive()) return;
+
     // Get the direction to the target
     velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
     BaseCharacter::update(deltaTime);

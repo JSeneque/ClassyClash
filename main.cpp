@@ -72,6 +72,13 @@ int main()
 
         goblin.update(GetFrameTime());
 
+        // check if weapon hits the enemy
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        {
+            if(CheckCollisionRecs(goblin.getCollisionRec(), knight.getCollisionRec()))
+                goblin.setAlive(false);
+        }
+
         EndDrawing();
     }
     CloseWindow();
