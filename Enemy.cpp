@@ -15,17 +15,12 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture)
 void Enemy::update(float deltaTime)
 {
     // Get the direction to the target
-    Vector2 toTarget = Vector2Subtract(target->getScreenPos(), screenPos);
-    // normalise this direction
-    toTarget = Vector2Normalize(toTarget);
-    // Multiple by speed
-    toTarget = Vector2Scale(toTarget, speed);
-    // Move towards the target
-    worldPos = Vector2Add(worldPos, toTarget);
-
-    screenPos = Vector2Subtract(worldPos, target->getWorldPosition());
-
-
+    velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
     BaseCharacter::update(deltaTime);
 
+}
+
+Vector2 Enemy::getScreenPos()
+{
+    return Vector2Subtract(worldPos, target->getWorldPosition());
 }
